@@ -8,8 +8,8 @@ static const int systraypinningfailfirst = -1;   /* 1: if pinning fails, display
 static const int showsystray        = 0;     /* 0 means no systray */
 static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Cousine:size=9", "fontawesome:size=9" };
-static const char dmenufont[]       = "Cousine:size=9";
+static const char *fonts[]          = { "Space Mono:size=9", "fontawesome:size=9" };
+static const char dmenufont[]       = "Space Mono:size=9";
 
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#000000";
@@ -59,11 +59,18 @@ static const char *pcmd[] = { "blueman-manager", NULL };
 static const char *dcmd[] = { "discord", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
+static const char *restartcmd[] = { "doas", "reboot", NULL };
+static const char *killcmd[] = { "doas", "killall", "d", NULL };
+
+
 /* volume things */
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 
+static const char *volup[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
+static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
+static const char *volmute[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -77,6 +84,8 @@ static Key keys[] = {
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F9,     spawn,          {.v = shutdowncmd } },
+	{ MODKEY,                       XK_F8,     spawn,          {.v = restartcmd } },
+	{ MODKEY,                       XK_F7,     spawn,          {.v = killcmd } },
 	{ MODKEY,                       XK_o,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -105,6 +114,9 @@ static Key keys[] = {
  	{ MODKEY,                       XK_F12,     spawn,          {.v = upvol   } },
  	{ MODKEY,                       XK_F11,     spawn,          {.v = downvol } },
  	{ MODKEY,                       XK_F10,     spawn,          {.v = mutevol } },
+	{ MODKEY,                       XK_F12,     spawn,          {.v = volup  } },
+        { MODKEY,                       XK_F11,     spawn,          {.v = voldown  } },
+        { MODKEY,                       XK_F10,     spawn,          {.v = volmute  } },
  	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
