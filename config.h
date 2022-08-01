@@ -55,9 +55,11 @@ static const char *crmcmd[] = { "chromium", NULL };
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
-static const char *pcmd[] = { "blueman-manager", NULL };
 static const char *dcmd[] = { "discord", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
+
+
+//power management stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
 static const char *restartcmd[] = { "doas", "reboot", NULL };
 static const char *killcmd[] = { "doas", "killall", "d", NULL };
@@ -79,7 +81,6 @@ static Key keys[] = {
         { MODKEY,                       XK_m,	   spawn,          {.v = crmcmd } },
         { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
         { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
-        { MODKEY,                       XK_x,     spawn,          {.v = pcmd } },
         { MODKEY,                       XK_z,     spawn,          {.v = dcmd } },
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
