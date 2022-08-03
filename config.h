@@ -1,15 +1,15 @@
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gapppx    = 5; 	/* gaps */
-static const unsigned int snap      = 0;       /* snap pixel */
-static const unsigned int systraypinning = -1;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft = -1;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = -1;   /* systray spacing */
-static const int systraypinningfailfirst = -1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 0;     /* 0 means no systray */
-static const int showbar            = 0;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Space Mono:size=9", "fontawesome:size=9" };
-static const char dmenufont[]       = "Space Mono:size=9";
+static const unsigned int borderpx  = 0;
+static const unsigned int gapppx    = 5;
+static const unsigned int snap      = 0;
+static const unsigned int systraypinning = -1;
+static const unsigned int systrayonleft = -1;
+static const unsigned int systrayspacing = -1;   
+static const int systraypinningfailfirst = -1;
+static const int showsystray        = 0;
+static const int showbar            = 0;
+static const int topbar             = 1;
+static const char *fonts[]          = { "Space Mono:size=8", "fontawesome:size=8" };
+static const char dmenufont[]       = "Space Mono:size=8";
 
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#000000";
@@ -25,18 +25,17 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
         { "Steam",       NULL,      NULL,	1 << 8,       1,           -1 },
 }; 
 
-static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static const float mfact     = 0.50;
+static const int nmaster     = 1;
+static const int resizehints = 0;
+static const int lockfullscreen = 1;
 
 static const Layout layouts[] = {
-	{ "",      NULL },    /* no layout function means floating behavior */
-        { "",      tile },    /* first entry is default */
+	{ "",      NULL },
+        { "",      tile },
 };
 
 #define MODKEY Mod4Mask
@@ -48,7 +47,7 @@ static const Layout layouts[] = {
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray4, "-sb", col_gray2, "-sf", col_gray4,  NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *crmcmd[] = { "chromium", NULL };
@@ -58,8 +57,7 @@ static const char *scmd[] = { "spotify", NULL };
 static const char *dcmd[] = { "discord", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
 
-
-//power management stuff
+//power managerment stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
 static const char *restartcmd[] = { "doas", "reboot", NULL };
 static const char *killcmd[] = { "doas", "killall", "d", NULL };
