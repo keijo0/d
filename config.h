@@ -6,7 +6,7 @@ static const unsigned int systrayonleft = -1;
 static const unsigned int systrayspacing = -1;   
 static const int systraypinningfailfirst = -1;
 static const int showsystray        = 0;
-static const int showbar            = 0;
+static const int showbar            = 1;
 static const int topbar             = 1;
 static const char *fonts[]          = { "Space Mono:size=8", "fontawesome:size=8" };
 static const char dmenufont[]       = "Space Mono:size=8";
