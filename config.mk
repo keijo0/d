@@ -1,4 +1,4 @@
-#d ver
+#d verwsina
 VERSION = 0.1
 
 # Customize below to fit your system

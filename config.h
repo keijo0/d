@@ -1,12 +1,12 @@
-static const unsigned int borderpx  = 0;
+static const unsigned int borderpx  = 2;
 static const unsigned int gapppx    = 5;
-static const unsigned int snap      = 0;
+static const unsigned int snap      = 25;
 static const unsigned int systraypinning = -1;
 static const unsigned int systrayonleft = -1;
 static const unsigned int systrayspacing = -1;   
 static const int systraypinningfailfirst = -1;
 static const int showsystray        = 0;
-static const int showbar            = 1;
+static const int showbar            = 0;
 static const int topbar             = 1;
 static const char *fonts[]          = { "Space Mono:size=8", "fontawesome:size=8" };
 static const char dmenufont[]       = "Space Mono:size=8";
@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
 static const Rule rules[] = {
         { "Steam",       NULL,      NULL,	1 << 8,       1,           -1 },
@@ -45,32 +45,29 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray4, "-sb", col_gray2, "-sf", col_gray4,  NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray4, "-sb", col_gray2, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *crmcmd[] = { "chromium", NULL };
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
-static const char *dcmd[] = { "discord", NULL };
+static const char *dcmd[] = { "discord-chromium", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
 
 //power managerment stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
-static const char *restartcmd[] = { "doas", "reboot", NULL };
-static const char *killcmd[] = { "doas", "killall", "d", NULL };
 
-
-/* volume things */
+//volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
-
 static const char *volup[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 static const char *volmute[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
+
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -83,13 +80,9 @@ static Key keys[] = {
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F9,     spawn,          {.v = shutdowncmd } },
-	{ MODKEY,                       XK_F8,     spawn,          {.v = restartcmd } },
-	{ MODKEY,                       XK_F7,     spawn,          {.v = killcmd } },
-	{ MODKEY,                       XK_o,      togglebar,      {0} },
+	{ MODKEY,                       XK_F3,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_F3,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_F4,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },

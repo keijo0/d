@@ -14,9 +14,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
-#ifdef XINERAMA
-#include <X11/extensions/Xinerama.h>
-#endif /* XINERAMA */
+//#ifdef XINERAMA
+//#include <X11/extensions/Xinerama.h>
+//#endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 
 #include "drw.h"
@@ -181,7 +181,6 @@ static unsigned int getsystraywidth();
 static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
-static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
