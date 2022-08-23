@@ -8,8 +8,8 @@ static const int systraypinningfailfirst = 0;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
-static const char *fonts[]          = { "Space Mono:size=9", "fontawesome:size=9" };
-static const char dmenufont[]       = "Space Mono:size=9";
+static const char *fonts[]          = { "Space Mono:size=7", "fontawesome:size=7" };
+static const char dmenufont[]       = "Space Mono:size=7";
 
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
