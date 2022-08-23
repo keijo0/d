@@ -1,4 +1,4 @@
-static const unsigned int borderpx  = 2;
+static const unsigned int borderpx  = 1;
 static const unsigned int gapppx    = 10;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
@@ -11,14 +11,13 @@ static const int topbar             = 0;
 static const char *fonts[]          = { "Space Mono:size=9", "fontawesome:size=9" };
 static const char dmenufont[]       = "Space Mono:size=9";
 
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#000000";
+static const char col_gray1[]       = "#161616";
+static const char col_gray2[]       = "#060606";
 static const char col_gray3[]       = "#beaa9b";
-static const char col_gray4[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-	[SchemeSel]  = { col_gray4, col_gray2, col_gray1 },
+	[SchemeSel]  = { col_gray3, col_gray2, col_gray1 },
 };
 
 /* tagging */
@@ -34,8 +33,9 @@ static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
 static const Layout layouts[] = {
-        { "",      tile },
-	{ "",      NULL },
+        { "floating",      NULL },
+        { "tiling",      tile },
+	{ "monocle",      monocle },
 };
 
 #define MODKEY Mod4Mask
@@ -48,8 +48,8 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray4, "-sb", col_gray2, "-sf", col_gray4, "-b", NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray3, "-b", NULL };
+static const char *termcmd[]  = { "tabbed", "alacritty", "--embed", NULL };
 static const char *crmcmd[] = { "firefox", "--disable-pinch", NULL };
 
 // shit
@@ -94,6 +94,7 @@ static Key keys[] = {
 	{ MODKEY, 	                XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

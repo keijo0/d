@@ -14,9 +14,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
-//#ifdef XINERAMA
-//#include <X11/extensions/Xinerama.h>
-//#endif /* XINERAMA */
+#ifdef XINERAMA
+#include <X11/extensions/Xinerama.h>
+#endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 
 #include "drw.h"
@@ -185,6 +185,7 @@ static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
+static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttagged(Client *c);
@@ -1200,6 +1201,21 @@ maprequest(XEvent *e)
 }
 
 void
+monocle(Monitor *m)
+{
+        unsigned int n = 0;
+        Client *c;
+
+        for (c = m->clients; c; c = c->next)
+                if (ISVISIBLE(c))
+                        n++;
+        if (n > 0) /* override layout symbol */
+                snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+        for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+                resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+}
+
+void
 motionnotify(XEvent *e)
 {
 	static Monitor *mon = NULL;
@@ -1743,7 +1759,7 @@ setup(void)
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMName], utf8string, 8,
-		PropModeReplace, (unsigned char *) "d", 3);
+		PropModeReplace, (unsigned char *) " ", 1);
 	XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	/* EWMH support per view */
