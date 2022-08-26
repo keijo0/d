@@ -33,8 +33,8 @@ static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
 static const Layout layouts[] = {
-	{ "", 	 tile },
         { "",      NULL },
+        { "",    tile },
 	{ "monocle",      monocle },
 };
 
