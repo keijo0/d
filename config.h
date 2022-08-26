@@ -1,4 +1,4 @@
-static const unsigned int borderpx  = 1;
+static const unsigned int borderpx  = 0;
 static const unsigned int gapppx    = 10;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
