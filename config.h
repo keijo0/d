@@ -56,7 +56,6 @@ static const char *crmcmd[] = { "firefox", "--disable-pinch", NULL };
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
-static const char *dcmd[] = { "discord-chromium", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
 
 //power managerment stuff
@@ -78,7 +77,6 @@ static Key keys[] = {
         { MODKEY,                       XK_m,	   spawn,          {.v = crmcmd } },
         { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
         { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
-        { MODKEY,                       XK_z,     spawn,          {.v = dcmd } },
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F9,     spawn,          {.v = shutdowncmd } },
