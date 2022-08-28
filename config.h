@@ -50,13 +50,17 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray3, "-b", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *crmcmd[] = { "firefox", "--disable-pinch", NULL };
+static const char *crmcmd[] = { "firefox", NULL };
 
 // shit
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
+
+static const char *eng[] = { "setxkbmap", "us", NULL };
+static const char *fin[] = { "setxkbmap", "fi", NULL };
+
 
 //power managerment stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
@@ -70,7 +74,7 @@ static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", N
 static const char *volmute[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 
 #include "movestack.c"
-static Key keys[] = {
+static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
@@ -78,6 +82,8 @@ static Key keys[] = {
         { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
         { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
+	{ MODKEY,                       XK_F7,     spawn,          {.v = eng } },
+        { MODKEY,                       XK_F6,     spawn,          {.v = fin } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F9,     spawn,          {.v = shutdowncmd } },
 	{ MODKEY,                       XK_F3,      togglebar,      {0} },
@@ -121,7 +127,7 @@ static Key keys[] = {
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
