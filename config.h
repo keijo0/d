@@ -61,6 +61,9 @@ static const char *sscmd[] = { "flameshot", "gui", NULL };
 static const char *eng[] = { "setxkbmap", "us", NULL };
 static const char *fin[] = { "setxkbmap", "fi", NULL };
 
+static const char *high[] = { "xbacklight", "-inc", "5", NULL };
+static const char *low[] = { "xbacklight", "-dec", "5", NULL };
+
 
 //power managerment stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
@@ -85,7 +88,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_F7,     spawn,          {.v = eng } },
         { MODKEY,                       XK_F6,     spawn,          {.v = fin } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
-        { MODKEY,                       XK_F9,     spawn,          {.v = shutdowncmd } },
+        { MODKEY,                       XK_F8,     spawn,          {.v = low } },
+        { MODKEY,                       XK_F9,     spawn,          {.v = high } },
+        { MODKEY,                       XK_F10,     spawn,          {.v = shutdowncmd } },
 	{ MODKEY,                       XK_F3,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
