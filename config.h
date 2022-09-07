@@ -1,5 +1,5 @@
 static const unsigned int borderpx  = 0;
-static const unsigned int gapppx    = 10;
+static const unsigned int gapppx    = 5;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayonleft = 0;
@@ -8,8 +8,8 @@ static const int systraypinningfailfirst = 0;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
-static const char *fonts[]          = { "Space Mono:size=9", "fontawesome:size=9" };
-static const char dmenufont[]       = "Space Mono:size=9";
+static const char *fonts[]          = { "Space Mono:size=8", "fontawesome:size=8" };
+static const char dmenufont[]       = "Space Mono:size=8";
 
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
@@ -50,38 +50,32 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray3, "-b", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *crmcmd[] = { "firefox", NULL };
+static const char *crmcmd[] = { "chromium", "--disable-gpu-vsync", "--max-gum-fps=9999", "--disable-smooth-scrolling", "--disable-gpu-vsync", "--disable-smooth-scrolling", "--no-sandbox", "--enable-low-res-tiling", " --scroll-pixels=n", NULL };
+static const char *firefox[]  = { "firefox", NULL };
 
 // shit
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
 static const char *sscmd[] = { "flameshot", "gui", NULL };
-
 static const char *eng[] = { "setxkbmap", "us", NULL };
 static const char *fin[] = { "setxkbmap", "fi", NULL };
-
 static const char *high[] = { "xbacklight", "-inc", "5", NULL };
 static const char *low[] = { "xbacklight", "-dec", "5", NULL };
-
-
-//power managerment stuff
 static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
-
 //volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
-static const char *mutevol[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *volup[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
-static const char *volmute[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
-        { MODKEY,                       XK_m,	   spawn,          {.v = crmcmd } },
+        { MODKEY,                       XK_n,	   spawn,          {.v = crmcmd } },
+        { MODKEY,                       XK_m,      spawn,          {.v = firefox } },
         { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
         { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
@@ -115,10 +109,8 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
  	{ MODKEY,                       XK_F12,     spawn,          {.v = upvol   } },
  	{ MODKEY,                       XK_F11,     spawn,          {.v = downvol } },
- 	{ MODKEY,                       XK_F10,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F12,     spawn,          {.v = volup  } },
         { MODKEY,                       XK_F11,     spawn,          {.v = voldown  } },
-        { MODKEY,                       XK_F10,     spawn,          {.v = volmute  } },
  	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
