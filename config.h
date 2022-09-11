@@ -1,4 +1,4 @@
-static const unsigned int borderpx  = 0;
+static const unsigned int borderpx  = 1;
 static const unsigned int gapppx    = 5;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
@@ -16,7 +16,7 @@ static const char col_gray2[]       = "#060606";
 static const char col_gray3[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray3, col_gray2, col_gray1 },
 };
 
@@ -35,7 +35,7 @@ static const int lockfullscreen = 1;
 static const Layout layouts[] = {
         { "",      NULL },
         { "",    tile },
-	{ "monocle",      monocle },
+	{ "",      monocle },
 };
 
 #define MODKEY Mod4Mask
@@ -53,7 +53,8 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const char *crmcmd[] = { "chromium", "--disable-gpu-vsync", "--max-gum-fps=9999", "--disable-smooth-scrolling", "--disable-gpu-vsync", "--disable-smooth-scrolling", "--no-sandbox", "--enable-low-res-tiling", " --scroll-pixels=n", NULL };
 static const char *firefox[]  = { "firefox", NULL };
 
-// shit
+
+/* shit */
 static const char *vrmcmd[] = { "pavucontrol", NULL };
 static const char *bcmd[] = { "pcmanfm", NULL };
 static const char *scmd[] = { "spotify", NULL };
@@ -68,6 +69,7 @@ static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *volup[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
 static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
+
 
 #include "movestack.c"
 static const Key keys[] = {
