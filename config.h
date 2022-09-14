@@ -8,8 +8,8 @@ static const int systraypinningfailfirst = 0;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
-static const char *fonts[]          = { "Space Mono:size=8", "fontawesome:size=8" };
-static const char dmenufont[]       = "Space Mono:size=8";
+static const char *fonts[]          = { "Cousine:size=8", "fontawesome:size=8" };
+static const char dmenufont[]       = "Cousine:size=8";
 
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
@@ -45,16 +45,15 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-        { ALTMOD,                       KEY,      focusnthmon,    {.i  = TAG } }, \
-        { ALTMOD|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
+        { MODKEY|ALTMOD,                       KEY,      focusnthmon,    {.i  = TAG } }, \
+        { MODKEY|ALTMOD|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
 
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray3, "-b", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *crmcmd[] = { "chromium", "--disable-gpu-vsync", "--max-gum-fps=9999", "--disable-smooth-scrolling", "--disable-gpu-vsync", "--disable-smooth-scrolling", "--no-sandbox", "--enable-low-res-tiling", " --scroll-pixels=n", NULL };
-static const char *firefox[]  = { "firefox", NULL };
+static const char *crmcmd[] = { "chromium", NULL };
 
 
 /* shit */
@@ -80,12 +79,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
         { MODKEY,                       XK_n,	   spawn,          {.v = crmcmd } },
-        { MODKEY,                       XK_m,      spawn,          {.v = firefox } },
         { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
         { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
         { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
-	{ MODKEY,                       XK_F7,     spawn,          {.v = eng } },
-        { MODKEY,                       XK_F6,     spawn,          {.v = fin } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = eng } },
+        { MODKEY,                       XK_F7,     spawn,          {.v = fin } },
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F8,     spawn,          {.v = low } },
         { MODKEY,                       XK_F9,     spawn,          {.v = high } },
