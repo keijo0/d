@@ -1,5 +1,5 @@
-static const unsigned int borderpx  = 1;
-static const unsigned int gapppx    = 5;
+static const unsigned int borderpx  = 0;
+static const unsigned int gapppx    = 10;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayonleft = 0;
@@ -8,8 +8,8 @@ static const int systraypinningfailfirst = 0;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
-static const char *fonts[]          = { "Cousine:size=8", "fontawesome:size=8" };
-static const char dmenufont[]       = "Cousine:size=8";
+static const char *fonts[]          = { "Cousine:size=9", "fontawesome:size=9" };
+static const char dmenufont[]       = "Cousine:size=9";
 
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
@@ -72,7 +72,7 @@ static const char *eng[] = { "setxkbmap", "us", NULL };
 static const char *fin[] = { "setxkbmap", "fi", NULL };
 static const char *high[] = { "xbacklight", "-inc", "5", NULL };
 static const char *low[] = { "xbacklight", "-dec", "5", NULL };
-static const char *shutdowncmd[] = { "doas", "poweroff", NULL };
+static const char *poweroff[] = { "doas", "poweroff", NULL };
 //volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
@@ -94,7 +94,7 @@ static const Key keys[] = {
         { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
         { MODKEY,                       XK_F8,     spawn,          {.v = low } },
         { MODKEY,                       XK_F9,     spawn,          {.v = high } },
-        { MODKEY,                       XK_F10,     spawn,          {.v = shutdowncmd } },
+        { MODKEY|ShiftMask,             XK_F10,     spawn,          {.v = poweroff } },
 	{ MODKEY,                       XK_F3,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
