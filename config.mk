@@ -1,5 +1,5 @@
 #d version
-VERSION = 1.0
+VERSION = 0.0
 
 # Customize below to fit your system
 
@@ -35,5 +35,5 @@ LDFLAGS  = ${LIBS}
 #LDFLAGS = ${LIBS}
 
 # compiler and linker
-CC = clang
+CC = /usr/lib/llvm/14/bin/clang
 LD = mold

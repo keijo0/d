@@ -24,7 +24,7 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"pasystray", NULL,
-	"xrdb", "~/.Xresources", NULL,
+	"xrdb", "/home/make/.Xresources", NULL, /* change this shit unless ur name is make */
 	NULL /* terminate */
 };
 

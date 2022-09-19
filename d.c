@@ -2287,7 +2287,7 @@ void
 updatestatus(void)
 {
 	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
-		strcpy(stext, "d-"VERSION);
+		strcpy(stext, "");
 	drawbar(selmon);
 	updatesystray();
 }
