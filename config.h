@@ -9,7 +9,6 @@ static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
 static const char *fonts[]          = { "Cousine:size=9", "fontawesome:size=9" };
-static const char dmenufont[]       = "Cousine:size=9";
 
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
@@ -60,25 +59,20 @@ static const Layout layouts[] = {
         { MOD|ALT|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
 
 
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray2, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray3, "-b", NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
-static const char *crmcmd[] = { "chromium", NULL };
+static const char *dmenu[] = { "dmenu_run", NULL };
+static const char *term[]  = { "alacritty", NULL };
+static const char *browser[] = { "chromium", NULL };
 
 
-/* shit */
-static const char *vrmcmd[] = { "pavucontrol", NULL };
-static const char *bcmd[] = { "pcmanfm", NULL };
-static const char *scmd[] = { "spotify", NULL };
-static const char *sscmd[] = { "flameshot", "gui", NULL };
+static const char *pavucontrol[] = { "pavucontrol", NULL };
+static const char *pcmanfm[] = { "pcmanfm", NULL };
+static const char *spotify[] = { "spotify", NULL };
 static const char *eng[] = { "setxkbmap", "us", NULL };
 static const char *fin[] = { "setxkbmap", "fi", NULL };
 static const char *high[] = { "xbacklight", "-inc", "5", NULL };
 static const char *low[] = { "xbacklight", "-dec", "5", NULL };
 static const char *poweroff[] = { "doas", "poweroff", NULL };
 static const char *reboot[] = { "doas", "reboot", NULL };
-//volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
@@ -88,17 +82,16 @@ static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MOD,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MOD,	                	XK_Return, spawn,          {.v = termcmd } },
-        { MOD,                       XK_n,	   spawn,          {.v = crmcmd } },
-        { MOD,                       XK_v,      spawn,          {.v = vrmcmd } },
-        { MOD,                       XK_b,	   spawn,          {.v = bcmd } },
-        { MOD,                       XK_F5,     spawn,          {.v = scmd } },
+	{ MOD,                       XK_p,      spawn,          {.v = dmenu } },
+	{ MOD,			     XK_Return, spawn,          {.v = term } },
+        { MOD,                       XK_n,	spawn,          {.v = browser } },
+        { MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
+        { MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
+        { MOD,                       XK_F5,     spawn,          {.v = spotify } },
 	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
         { MOD,                       XK_F7,     spawn,          {.v = fin } },
-        { MOD,                       XK_s,     spawn,          {.v = sscmd } },
-        { MOD|ShiftMask,             XK_F10,     spawn,          {.v = poweroff } },
-	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,	   {.v = reboot } },
+        { MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
+	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,		{.v = reboot } },
 	{ MOD,                       XK_F3,      togglebar,      {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
@@ -108,7 +101,7 @@ static const Key keys[] = {
 	{ MOD|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MOD,                       XK_Return, zoom,           {0} },
 	{ ALT,                       XK_Tab,    view,           {0} },
-	{ MOD,	       		XK_q,      killclient,     {0} },
+	{ MOD,	       		     XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
 	{ MOD,                       XK_f,      setlayout,      {.v = &layouts[2]} },
@@ -144,7 +137,7 @@ static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = term } },
 	{ ClkClientWin,         MOD,         	Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MOD,         	Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MOD,         	Button3,        resizemouse,    {0} },
