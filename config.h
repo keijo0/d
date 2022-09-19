@@ -32,6 +32,7 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" 
 
 static const Rule rules[] = {
         { "Steam",       NULL,      NULL,	1 << 8,       1,           -1 },
+	{ "lutris",       NULL,      NULL,       1 << 7,       1,           -1 },
 }; 
 
 static const float mfact     = 0.50;
@@ -39,10 +40,12 @@ static const int nmaster     = 1;
 static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
+#include "horizgrid.c"
 static const Layout layouts[] = {
         { "",      NULL },
         { "",    tile },
 	{ "",      monocle },
+	{ "",    horizgrid },
 };
 
 #define ALTMOD Mod1Mask
@@ -73,6 +76,7 @@ static const char *fin[] = { "setxkbmap", "fi", NULL };
 static const char *high[] = { "xbacklight", "-inc", "5", NULL };
 static const char *low[] = { "xbacklight", "-dec", "5", NULL };
 static const char *poweroff[] = { "doas", "poweroff", NULL };
+static const char *reboot[] = { "doas", "reboot", NULL };
 //volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
@@ -95,6 +99,7 @@ static const Key keys[] = {
         { MODKEY,                       XK_F8,     spawn,          {.v = low } },
         { MODKEY,                       XK_F9,     spawn,          {.v = high } },
         { MODKEY|ShiftMask,             XK_F10,     spawn,          {.v = poweroff } },
+	{ MODKEY|ShiftMask|ControlMask, XK_F12,    spawn,	   {.v = reboot } },
 	{ MODKEY,                       XK_F3,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -108,6 +113,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+        { MODKEY,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
