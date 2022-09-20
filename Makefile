@@ -1,6 +1,3 @@
-# d - d
-# See LICENSE file for copyright and license details.
-
 include config.mk
 
 SRC = drw.c d.c util.c

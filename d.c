@@ -2571,7 +2571,7 @@ int
 main(int argc, char *argv[])
 {
 	if (argc == 2 && !strcmp("-v", argv[1]))
-		die("d-"VERSION);
+		die("");
 	else if (argc != 1)
 		die("usage: d [-v]");
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
