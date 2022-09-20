@@ -23,7 +23,8 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"pasystray", NULL,
-	"xrdb", "/home/make/.Xresources", NULL, /* change this shit unless ur name is make */
+	"xrdb", "/home/make/.Xresources", NULL,
+	"xautolock", "-time", "15", "-locker", "slock", NULL,
 	NULL /* terminate */
 };
 
@@ -125,8 +126,8 @@ static const Key keys[] = {
         { 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
         { 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
 	{ 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
-	{ 0,	XK_F11,      spawn,	     {.v = low } },
-	{ 0,	XK_F12,      spawn,          {.v = high } },
+	{ 0,	XF86XK_MonBrightnessDown,      spawn,	     {.v = low } },
+	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
 	{ 0, 	XF86XK_AudioPlay,	     spawn,	     {.v = play } },
 	{ 0,	XF86XK_AudioNext,	     spawn,	     {.v = next } },
 	{ 0,    XF86XK_AudioPrev,	     spawn, 	     {.v = prev } },
