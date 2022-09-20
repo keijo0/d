@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
-	"pasystray", NULL,
+	"nm-applet", NULL,
 	"xrdb", "/home/make/.Xresources", NULL, /* change this shit unless ur name is make */
 	NULL /* terminate */
 };
@@ -77,8 +77,6 @@ static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 
-
-
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -118,8 +116,8 @@ static const Key keys[] = {
  	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
         { 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
         { 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
-	{ 0,	XK_F11,      spawn,	     {.v = low } },
-	{ 0,	XK_F12,      spawn,          {.v = high } },
+	{ 0,	XF86XK_MonBrightnessDown,      spawn,	     {.v = low } },
+	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
  	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
