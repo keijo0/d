@@ -35,5 +35,5 @@ LDFLAGS  = ${LIBS}
 #LDFLAGS = ${LIBS}
 
 # compiler and linker
-CC = clang
+CC = /usr/lib/llvm/14/bin/clang
 LD = mold

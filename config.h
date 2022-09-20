@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
-	"nm-applet", NULL,
+	"pasystray", NULL,
 	"xrdb", "/home/make/.Xresources", NULL, /* change this shit unless ur name is make */
 	NULL /* terminate */
 };
@@ -76,6 +76,14 @@ static const char *reboot[] = { "doas", "reboot", NULL };
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
+static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
+
+
+//media shit
+static const char *play[] = { "playerctl", "-a", "play-pause", NULL, };
+static const char *prev[] = { "playerctl", "-a", "previous", NULL, };
+static const char *next[] = { "playerctl", "-a", "next", NULL, };
+
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -116,8 +124,12 @@ static const Key keys[] = {
  	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
         { 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
         { 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
-	{ 0,	XF86XK_MonBrightnessDown,      spawn,	     {.v = low } },
-	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
+	{ 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
+	{ 0,	XK_F11,      spawn,	     {.v = low } },
+	{ 0,	XK_F12,      spawn,          {.v = high } },
+	{ 0, 	XF86XK_AudioPlay,	     spawn,	     {.v = play } },
+	{ 0,	XF86XK_AudioNext,	     spawn,	     {.v = next } },
+	{ 0,    XF86XK_AudioPrev,	     spawn, 	     {.v = prev } },
  	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
