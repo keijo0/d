@@ -25,6 +25,7 @@ static const char *const autostart[] = {
 	"pasystray", NULL,
 	"xrdb", "/home/make/.Xresources", NULL,
 	"xautolock", "-time", "15", "-locker", "slock", NULL,
+//	"nm-applet", NULL,
 	NULL /* terminate */
 };
 
