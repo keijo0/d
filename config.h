@@ -24,7 +24,7 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"pasystray", NULL,
-	"xrdb", "/home/make/.Xresources", NULL,
+	"xrdb", "~/.Xresources", NULL,
 	NULL /* terminate */
 };
 
@@ -49,15 +49,15 @@ static const Layout layouts[] = {
 	{ "",    horizgrid },
 };
 
-#define ALTMOD Mod1Mask
-#define MODKEY Mod4Mask
+#define ALT Mod1Mask
+#define MOD Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-        { MODKEY|ALTMOD,                       KEY,      focusnthmon,    {.i  = TAG } }, \
-        { MODKEY|ALTMOD|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
+	{ MOD,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MOD|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MOD|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
+        { MOD|ALT,                       KEY,      focusnthmon,    {.i  = TAG } }, \
+        { MOD|ALT|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
 
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -81,53 +81,52 @@ static const char *reboot[] = { "doas", "reboot", NULL };
 //volume things
 static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
-static const char *volup[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
-static const char *voldown[] = { "notify-send", "-t", "1000", "VOLUME", "", NULL };
+static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
+
 
 
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
-        { MODKEY,                       XK_n,	   spawn,          {.v = crmcmd } },
-        { MODKEY,                       XK_v,      spawn,          {.v = vrmcmd } },
-        { MODKEY,                       XK_b,	   spawn,          {.v = bcmd } },
-        { MODKEY,                       XK_F5,     spawn,          {.v = scmd } },
-	{ MODKEY,                       XK_F6,     spawn,          {.v = eng } },
-        { MODKEY,                       XK_F7,     spawn,          {.v = fin } },
-        { MODKEY,                       XK_s,     spawn,          {.v = sscmd } },
-        { MODKEY,                       XK_F8,     spawn,          {.v = low } },
-        { MODKEY,                       XK_F9,     spawn,          {.v = high } },
-        { MODKEY|ShiftMask,             XK_F10,     spawn,          {.v = poweroff } },
-	{ MODKEY|ShiftMask|ControlMask, XK_F12,    spawn,	   {.v = reboot } },
-	{ MODKEY,                       XK_F3,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ ALTMOD,                       XK_Tab,    view,           {0} },
-	{ MODKEY, 	                XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
-        { MODKEY,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-        { MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-        { MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
-        { MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
- 	{ MODKEY,                       XK_F12,     spawn,          {.v = upvol   } },
- 	{ MODKEY,                       XK_F11,     spawn,          {.v = downvol } },
-	{ MODKEY,                       XK_F12,     spawn,          {.v = volup  } },
-        { MODKEY,                       XK_F11,     spawn,          {.v = voldown  } },
+	{ MOD,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MOD,	                	XK_Return, spawn,          {.v = termcmd } },
+        { MOD,                       XK_n,	   spawn,          {.v = crmcmd } },
+        { MOD,                       XK_v,      spawn,          {.v = vrmcmd } },
+        { MOD,                       XK_b,	   spawn,          {.v = bcmd } },
+        { MOD,                       XK_F5,     spawn,          {.v = scmd } },
+	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
+        { MOD,                       XK_F7,     spawn,          {.v = fin } },
+        { MOD,                       XK_s,     spawn,          {.v = sscmd } },
+        { MOD|ShiftMask,             XK_F10,     spawn,          {.v = poweroff } },
+	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,	   {.v = reboot } },
+	{ MOD,                       XK_F3,      togglebar,      {0} },
+	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MOD,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MOD|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MOD|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MOD,                       XK_Return, zoom,           {0} },
+	{ ALT,                       XK_Tab,    view,           {0} },
+	{ MOD,	       		XK_q,      killclient,     {0} },
+	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
+	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
+	{ MOD,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+        { MOD,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
+	{ MOD,                       XK_space,  setlayout,      {0} },
+	{ MOD|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MOD,                       XK_0,      view,           {.ui = ~0 } },
+	{ MOD|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MOD|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+	{ MOD|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+        { MOD,                       XK_minus,  setgaps,        {.i = -5 } },
+        { MOD,                       XK_equal,  setgaps,        {.i = +5 } },
+        { MOD|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+ 	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
+        { 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
+        { 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
+	{ 0,	XK_F11,      spawn,	     {.v = low } },
+	{ 0,	XK_F12,      spawn,          {.v = high } },
  	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -137,7 +136,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_r,      quit,           {0} },
+	{ MOD|ShiftMask,             	XK_r,      quit,           {0} },
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
@@ -146,11 +145,11 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MOD,         	Button1,        movemouse,      {0} },
+	{ ClkClientWin,         MOD,         	Button2,        togglefloating, {0} },
+	{ ClkClientWin,         MOD,         	Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,            MOD,         	Button1,        tag,            {0} },
+	{ ClkTagBar,            MOD,         	Button3,        toggletag,      {0} },
 };
