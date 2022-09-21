@@ -44,8 +44,8 @@ static const int lockfullscreen = 1;
 
 #include "horizgrid.c"
 static const Layout layouts[] = {
-        { "",      NULL },
-        { "",    tile },
+	{ "",      NULL },
+	{ "",    tile },
 	{ "",      monocle },
 	{ "",    horizgrid },
 };
@@ -57,15 +57,13 @@ static const Layout layouts[] = {
 	{ MOD|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MOD|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-        { MOD|ALT,                       KEY,      focusnthmon,    {.i  = TAG } }, \
-        { MOD|ALT|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
+	{ MOD|ALT,                       KEY,      focusnthmon,    {.i  = TAG } }, \
+	{ MOD|ALT|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
 
 
 static const char *dmenu[] = { "dmenu_run", NULL };
 static const char *term[]  = { "alacritty", NULL };
 static const char *browser[] = { "chromium", NULL };
-
-
 static const char *pavucontrol[] = { "pavucontrol", NULL };
 static const char *pcmanfm[] = { "pcmanfm", NULL };
 static const char *spotify[] = { "spotify", NULL };
@@ -80,7 +78,6 @@ static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
 
-
 //media shit
 static const char *play[] = { "playerctl", "-a", "play-pause", NULL, };
 static const char *prev[] = { "playerctl", "-a", "previous", NULL, };
@@ -91,48 +88,48 @@ static const char *next[] = { "playerctl", "-a", "next", NULL, };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MOD,                       XK_p,      spawn,          {.v = dmenu } },
-	{ MOD,			     XK_Return, spawn,          {.v = term } },
-        { MOD,                       XK_n,	spawn,          {.v = browser } },
-        { MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
-        { MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
-        { MOD,                       XK_F5,     spawn,          {.v = spotify } },
+	{ MOD,			    			 XK_Return, spawn,          {.v = term } },
+	{ MOD,                       XK_n,	spawn,          {.v = browser } },
+	{ MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
+	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
+	{ MOD,                       XK_F5,     spawn,          {.v = spotify } },
 	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
-        { MOD,                       XK_F7,     spawn,          {.v = fin } },
-        { MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
-	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,		{.v = reboot } },
+	{ MOD,                       XK_F7,     spawn,          {.v = fin } },
+	{ MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
+	{ MOD|ShiftMask|ControlMask,	 XK_F12,    spawn,		{.v = reboot } },
 	{ MOD,                       XK_F3,      togglebar,      {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MOD,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MOD|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MOD|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MOD,                       XK_Return, zoom,           {0} },
+	{ MOD|ShiftMask,				XK_k,      movestack,      {.i = -1 } },
+	{ MOD,						XK_Return, zoom,           {0} },
 	{ ALT,                       XK_Tab,    view,           {0} },
-	{ MOD,	       		     XK_q,      killclient,    	{0} },
+	{ MOD,	       		     		XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
 	{ MOD,                       XK_f,      setlayout,      {.v = &layouts[2]} },
-        { MOD,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
+	{ MOD,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
 	{ MOD,                       XK_space,  setlayout,      {0} },
 	{ MOD|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MOD,                       XK_0,      view,           {.ui = ~0 } },
 	{ MOD|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MOD|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MOD|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-        { MOD,                       XK_minus,  setgaps,        {.i = -5 } },
-        { MOD,                       XK_equal,  setgaps,        {.i = +5 } },
-        { MOD|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
- 	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
-        { 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
-        { 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
+	{ MOD,                       XK_minus,  setgaps,        {.i = -5 } },
+	{ MOD,                       XK_equal,  setgaps,        {.i = +5 } },
+	{ MOD|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
+	{ 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
+	{ 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
 	{ 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
 	{ 0,	XF86XK_MonBrightnessDown,      spawn,	     {.v = low } },
 	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
 	{ 0, 	XF86XK_AudioPlay,	     spawn,	     {.v = play } },
 	{ 0,	XF86XK_AudioNext,	     spawn,	     {.v = next } },
 	{ 0,    XF86XK_AudioPrev,	     spawn, 	     {.v = prev } },
- 	TAGKEYS(                        XK_1,                      0)
+	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
