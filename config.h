@@ -34,7 +34,6 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" 
 
 static const Rule rules[] = {
 		{ "Steam",			NULL,      NULL,		1 << 8,       1,           -1 },
-		{ "lutris",			  NULL,      NULL,       1 << 7,       1,           -1 },
 }; 
 
 static const float mfact     = 0.50;
@@ -54,11 +53,8 @@ static const Layout layouts[] = {
 	{ MOD,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MOD|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MOD|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-	{ MOD|ALT,                       KEY,      focusnthmon,    {.i  = TAG } }, \
-	{ MOD|ALT|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
 
-
+// binds and shit
 static const char *dmenu[] = { "dmenu_run", NULL };
 static const char *term[]  = { "alacritty", NULL };
 static const char *browser[] = { "chromium", NULL };
@@ -75,8 +71,6 @@ static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute
 static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
-
-//media shit
 static const char *play[] = { "playerctl", "-a", "play-pause",	NULL, };
 static const char *prev[] = { "playerctl", "-a", "previous",	NULL, };
 static const char *next[] = { "playerctl", "-a", "next", 	NULL, };
@@ -149,5 +143,4 @@ static const Button buttons[] = {
 	{ ClkTagBar,				0,				Button1,        view,           {0} },
 	{ ClkTagBar,				0,				Button3,        toggleview,     {0} },
 	{ ClkTagBar,				MOD,				Button1,        tag,            {0} },
-	{ ClkTagBar,				MOD,				Button3,        toggletag,      {0} },
 };

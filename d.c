@@ -166,14 +166,12 @@ static Monitor *createmon(void);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
-static Monitor *numtomon(int num);
 static void drawbar(Monitor *m);
 static void drawbars(void);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
 static void focusin(XEvent *e);
-static void focusnthmon(const Arg *arg);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
@@ -220,11 +218,9 @@ static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
-static void tagnthmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
-static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
@@ -802,18 +798,6 @@ detachstack(Client *c)
 	}
 }
 
-Monitor *
-numtomon(int num)
-{
-	Monitor *m = NULL;
-	int i = 0;
-
-	for(m = mons, i=0; m->next && i < num; m = m->next){
-		i++;
-	}
-	return m;
-}
-
 void
 drawbar(Monitor *m)
 {
@@ -936,21 +920,6 @@ focusin(XEvent *e)
 		setfocus(selmon->sel);
 }
 
-
-void
-focusnthmon(const Arg *arg)
-{
-	Monitor *m;
-
-	if (!mons->next)
-		return;
-
-	if ((m = numtomon(arg->i)) == selmon)
-		return;
-	unfocus(selmon->sel, 0);
-	selmon = m;
-	focus(NULL);
-}
 
 void
 focusstack(const Arg *arg)
@@ -1910,13 +1879,6 @@ tag(const Arg *arg)
 	}
 }
 
-void
-tagnthmon(const Arg *arg)
-{
-	if (!selmon->sel || !mons->next)
-		return;
-	sendmon(selmon->sel, numtomon(arg->i));
-}
 
 void
 tile(Monitor *m)
@@ -1981,20 +1943,6 @@ togglefloating(const Arg *arg)
 	arrange(selmon);
 }
 
-void
-toggletag(const Arg *arg)
-{
-	unsigned int newtags;
-
-	if (!selmon->sel)
-		return;
-	newtags = selmon->sel->tags ^ (arg->ui & TAGMASK);
-	if (newtags) {
-		selmon->sel->tags = newtags;
-		focus(NULL);
-		arrange(selmon);
-	}
-}
 
 void
 toggleview(const Arg *arg)
