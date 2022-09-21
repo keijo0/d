@@ -42,12 +42,10 @@ static const int nmaster     = 1;
 static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
-#include "horizgrid.c"
 static const Layout layouts[] = {
-	{ "",      NULL },
-	{ "",    tile },
-	{ "",      monocle },
-	{ "",    horizgrid },
+	{ "",		NULL },
+	{ "",		tile },
+	{ "",		monocle },
 };
 
 #define ALT Mod1Mask
@@ -112,10 +110,8 @@ static const Key keys[] = {
 	{ MOD,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
 	{ MOD,                       XK_space,  setlayout,      {0} },
 	{ MOD|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MOD,                       XK_0,      view,           {.ui = ~0 } },
-	{ MOD|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MOD|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MOD|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MOD,                       XK_A,      view,           {.ui = ~0 } },
+	{ MOD|ShiftMask,             XK_A,      tag,            {.ui = ~0 } },
 	{ MOD,                       XK_minus,  setgaps,        {.i = -5 } },
 	{ MOD,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MOD|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
@@ -137,6 +133,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_0,                      9)
 	{ MOD|ShiftMask,             	XK_r,      quit,           {0} },
 };
 
