@@ -33,8 +33,8 @@ static const char *const autostart[] = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
 static const Rule rules[] = {
-        { "Steam",       NULL,      NULL,	1 << 8,       1,           -1 },
-	{ "lutris",       NULL,      NULL,       1 << 7,       1,           -1 },
+		{ "Steam",			NULL,      NULL,		1 << 8,       1,           -1 },
+		{ "lutris",			  NULL,      NULL,       1 << 7,       1,           -1 },
 }; 
 
 static const float mfact     = 0.50;
@@ -79,7 +79,7 @@ static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
 
 //media shit
-static const char *play[] = { "playerctl", "-a", "play-pause", NULL, };
+static const char *play[] = { "playerctl", "-a", "play-pause", ";", "notify-send", "$(playerctl", "status)", NULL, };
 static const char *prev[] = { "playerctl", "-a", "previous", NULL, };
 static const char *next[] = { "playerctl", "-a", "next", NULL, };
 
