@@ -83,7 +83,6 @@ static const char *play[] = { "playerctl", "-a", "play-pause", NULL, };
 static const char *prev[] = { "playerctl", "-a", "previous", NULL, };
 static const char *next[] = { "playerctl", "-a", "next", NULL, };
 
-
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
