@@ -144,14 +144,14 @@ static const Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = term } },
-	{ ClkClientWin,         MOD,         	Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MOD,         	Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MOD,         	Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MOD,         	Button1,        tag,            {0} },
-	{ ClkTagBar,            MOD,         	Button3,        toggletag,      {0} },
+	{ ClkLtSymbol,				0,				Button1,        setlayout,      {0} },
+	{ ClkLtSymbol,				0,				Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkStatusText,			0,				Button2,        spawn,          {.v = term } },
+	{ ClkClientWin,				MOD,				Button1,        movemouse,      {0} },
+	{ ClkClientWin,				MOD,				Button2,        togglefloating, {0} },
+	{ ClkClientWin,				MOD,				Button3,        resizemouse,    {0} },
+	{ ClkTagBar,				0,				Button1,        view,           {0} },
+	{ ClkTagBar,				0,				Button3,        toggleview,     {0} },
+	{ ClkTagBar,				MOD,				Button1,        tag,            {0} },
+	{ ClkTagBar,				MOD,				Button3,        toggletag,      {0} },
 };
