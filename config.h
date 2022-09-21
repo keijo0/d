@@ -79,9 +79,9 @@ static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
 
 //media shit
-static const char *play[] = { "playerctl", "-a", "play-pause", ";", "notify-send", "$(playerctl", "status)", NULL, };
-static const char *prev[] = { "playerctl", "-a", "previous", NULL, };
-static const char *next[] = { "playerctl", "-a", "next", NULL, };
+static const char *play[] = { "playerctl", "-a", "play-pause",	NULL, };
+static const char *prev[] = { "playerctl", "-a", "previous",	NULL, };
+static const char *next[] = { "playerctl", "-a", "next", 	NULL, };
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -123,7 +123,7 @@ static const Key keys[] = {
 	{ 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
 	{ 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
 	{ 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
-	{ 0,	XF86XK_MonBrightnessDown,      spawn,	     {.v = low } },
+	{ 0,	XF86XK_MonBrightnessDown,    spawn,	     {.v = low } },
 	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
 	{ 0, 	XF86XK_AudioPlay,	     spawn,	     {.v = play } },
 	{ 0,	XF86XK_AudioNext,	     spawn,	     {.v = next } },
