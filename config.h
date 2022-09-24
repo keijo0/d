@@ -41,10 +41,12 @@ static const int nmaster     = 1;
 static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
+#include "grid.c"
 static const Layout layouts[] = {
-	{ "",		NULL },
-	{ "",		tile },
-	{ "",		monocle },
+	{ "NULL",		NULL },
+	{ "tile",		tile },
+        { "grid",      	grid },
+	{ "monocle",		monocle },
 };
 
 #define ALT Mod1Mask
@@ -54,32 +56,31 @@ static const Layout layouts[] = {
 	{ MOD|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 
-// binds and shit
-static const char *dmenu[] = { "dmenu_run", NULL };
-static const char *term[]  = { "alacritty", NULL };
-static const char *browser[] = { "chromium", NULL };
-static const char *pavucontrol[] = { "pavucontrol", NULL };
-static const char *pcmanfm[] = { "pcmanfm", NULL };
-static const char *spotify[] = { "spotify", NULL };
-static const char *eng[] = { "setxkbmap", "us", NULL };
-static const char *fin[] = { "setxkbmap", "fi", NULL };
-static const char *high[] = { "xbacklight", "-inc", "5", NULL };
-static const char *low[] = { "xbacklight", "-dec", "5", NULL };
-static const char *poweroff[] = { "doas", "poweroff", NULL };
-static const char *reboot[] = { "doas", "reboot", NULL };
-static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
-static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
-static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
-static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", NULL };
-static const char *play[] = { "playerctl", "-a", "play-pause",	NULL, };
-static const char *prev[] = { "playerctl", "-a", "previous",	NULL, };
-static const char *next[] = { "playerctl", "-a", "next", 	NULL, };
+static const char *dmenu[] = { "dmenu_run", 0};
+static const char *term[]  = { "alacritty", 0};
+static const char *browser[] = { "chromium", 0};
+static const char *pavucontrol[] = { "pavucontrol", 0};
+static const char *pcmanfm[] = { "pcmanfm", 0};
+static const char *spotify[] = { "spotify", 0};
+static const char *eng[] = { "setxkbmap", "us", 0};
+static const char *fin[] = { "setxkbmap", "fi", 0};
+static const char *high[] = { "xbacklight", "-inc", "5", 0};
+static const char *low[] = { "xbacklight", "-dec", "5", 0};
+static const char *poweroff[] = { "doas", "poweroff", 0};
+static const char *reboot[] = { "doas", "reboot", 0};
+static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", 0};
+static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", 0};
+static const char *mutevol[] = { "amixer", "set", "Master", "toggle", 0};
+static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", 0};
+static const char *play[] = { "playerctl", "-a", "play-pause",  0};
+static const char *prev[] = { "playerctl", "-a", "previous",    0};
+static const char *next[] = { "playerctl", "-a", "next",        0};
 
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MOD,                       XK_p,      spawn,          {.v = dmenu } },
-	{ MOD,			    			 XK_Return, spawn,          {.v = term } },
+	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_n,	spawn,          {.v = browser } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
@@ -88,7 +89,7 @@ static const Key keys[] = {
 	{ MOD,                       XK_F7,     spawn,          {.v = fin } },
 	{ MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
 	{ MOD|ShiftMask|ControlMask,	 XK_F12,    spawn,		{.v = reboot } },
-	{ MOD,                       XK_F3,      togglebar,      {0} },
+	{ MOD,                       XK_F9,      togglebar,      {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -100,7 +101,7 @@ static const Key keys[] = {
 	{ MOD,	       		     		XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
-	{ MOD,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+	{ MOD,                       XK_F3,      setlayout,      {.v = &layouts[2]} },
 	{ MOD,                       XK_F4,      setlayout,      {.v = &layouts[3]} },
 	{ MOD,                       XK_space,  setlayout,      {0} },
 	{ MOD|ShiftMask,             XK_space,  togglefloating, {0} },
