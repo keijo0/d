@@ -28,7 +28,7 @@ clean:
 dist: clean
 	mkdir -p d-${VERSION}
 	cp -R LICENSE Makefile README config.def.h config.mk\
-		d.1 drw.h util.h ${SRC} d.png transient.c d-${VERSION}
+		drw.h util.h ${SRC} d.png transient.c d-${VERSION}
 	tar -cf d-${VERSION}.tar d-${VERSION}
 	gzip d-${VERSION}.tar
 	rm -rf d-${VERSION}
@@ -37,12 +37,8 @@ install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f d ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/d
-	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	sed "s/VERSION/${VERSION}/g" < d.1 > ${DESTDIR}${MANPREFIX}/man1/d.1
-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/d.1
 
 uninstall:
-	rm -f ${DESTDIR}${PREFIX}/bin/d\
-		${DESTDIR}${MANPREFIX}/man1/d.1
+	rm -f ${DESTDIR}${PREFIX}/bin/d
 
 .PHONY: all options clean dist install uninstall

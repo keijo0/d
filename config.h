@@ -38,7 +38,6 @@ static const Rule rules[] = {
 
 static const float mfact     = 0.50;
 static const int nmaster     = 1;
-static const int resizehints = 0;
 static const int lockfullscreen = 1;
 
 #include "grid.c"
@@ -57,6 +56,7 @@ static const Layout layouts[] = {
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 
 static const char *dmenu[] = { "dmenu_run", 0};
+static const char *ss[] = { "import", "1.jpg", 0};
 static const char *term[]  = { "alacritty", 0};
 static const char *browser[] = { "chromium", 0};
 static const char *pavucontrol[] = { "pavucontrol", 0};
@@ -80,6 +80,7 @@ static const char *next[] = { "playerctl", "-a", "next",        0};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MOD,                       XK_p,      spawn,          {.v = dmenu } },
+	{ MOD,			     XK_s,	spawn,		{.v = ss } },
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_n,	spawn,          {.v = browser } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
@@ -88,17 +89,26 @@ static const Key keys[] = {
 	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
 	{ MOD,                       XK_F7,     spawn,          {.v = fin } },
 	{ MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
-	{ MOD|ShiftMask|ControlMask,	 XK_F12,    spawn,		{.v = reboot } },
+	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,		{.v = reboot } },
+	{ 0,    XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
+        { 0,    XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
+        { 0,    XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
+        { 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
+        { 0,    XF86XK_MonBrightnessDown,    spawn,          {.v = low } },
+        { 0,    XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
+        { 0,    XF86XK_AudioPlay,            spawn,          {.v = play } },
+        { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
+        { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
 	{ MOD,                       XK_F9,      togglebar,      {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MOD,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MOD|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MOD|ShiftMask,				XK_k,      movestack,      {.i = -1 } },
-	{ MOD,						XK_Return, zoom,           {0} },
+	{ MOD|ShiftMask,	     XK_k,      movestack,      {.i = -1 } },
+	{ MOD,			     XK_Return, zoom,           {0} },
 	{ MOD,                       XK_Tab,    view,           {0} },
-	{ MOD,	       		     		XK_q,      killclient,    	{0} },
+	{ MOD,	       		     XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
 	{ MOD,                       XK_F3,      setlayout,      {.v = &layouts[2]} },
@@ -110,15 +120,6 @@ static const Key keys[] = {
 	{ MOD,                       XK_minus,  setgaps,        {.i = -5 } },
 	{ MOD,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MOD|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	{ 0,	XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
-	{ 0,	XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
-	{ 0,	XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
-	{ 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
-	{ 0,	XF86XK_MonBrightnessDown,    spawn,	     {.v = low } },
-	{ 0,	XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
-	{ 0, 	XF86XK_AudioPlay,	     spawn,	     {.v = play } },
-	{ 0,	XF86XK_AudioNext,	     spawn,	     {.v = next } },
-	{ 0,    XF86XK_AudioPrev,	     spawn, 	     {.v = prev } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
