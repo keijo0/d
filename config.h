@@ -9,14 +9,13 @@ static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
 static const char *fonts[]          = { "Cousine:size=9", "fontawesome:size=9" };
-
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
 static const char col_gray3[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray3, col_gray2, col_gray1 },
+	[SchemeSel]  = { col_gray3, col_gray2, col_gray3 },
 };
 
 static const char *const autostart[] = {
@@ -40,12 +39,10 @@ static const float mfact     = 0.50;
 static const int nmaster     = 1;
 static const int lockfullscreen = 1;
 
-#include "grid.c"
 static const Layout layouts[] = {
-	{ "NULL",		NULL },
-	{ "tile",		tile },
-        { "grid",      	grid },
-	{ "monocle",		monocle },
+	{ "",		NULL },
+	{ "",		tile },
+        { "",      	monocle },
 };
 
 #define ALT Mod1Mask
