@@ -14,8 +14,8 @@ static const char col_gray2[]       = "#060606";
 static const char col_gray3[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray3, col_gray2, col_gray3 },
+	[SchemeNorm] = { col_gray3, col_gray1, 0},
+	[SchemeSel]  = { col_gray3, col_gray2, 0},
 };
 
 static const char *const autostart[] = {
@@ -23,9 +23,9 @@ static const char *const autostart[] = {
 	"slstatus", NULL,
 	"pasystray", NULL,
 	"xrdb", "/home/make/.Xresources", NULL,
-	"xautolock", "-time", "15", "-locker", "slock", NULL,
+//	"xautolock", "-time", "15", "-locker", "slock", NULL,
 //	"nm-applet", NULL,
-	NULL /* terminate */
+	NULL
 };
 
 /* tagging */
@@ -55,7 +55,7 @@ static const Layout layouts[] = {
 static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "import", "1.jpg", 0};
 static const char *term[]  = { "alacritty", 0};
-static const char *browser[] = { "chromium", 0};
+static const char *browser[] = { "firefox", 0};
 static const char *pavucontrol[] = { "pavucontrol", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
 static const char *spotify[] = { "spotify", 0};
@@ -96,7 +96,7 @@ static const Key keys[] = {
         { 0,    XF86XK_AudioPlay,            spawn,          {.v = play } },
         { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
         { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
-	{ MOD,                       XK_F9,      togglebar,      {0} },
+	{ ALT,                       XK_F1,      togglebar,      {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
