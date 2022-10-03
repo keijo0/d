@@ -8,7 +8,7 @@ static const int systraypinningfailfirst = 0;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
-static const char *fonts[]          = { "Cousine:size=9", "fontawesome:size=9" };
+static const char *fonts[]          = { "Cousine:size=8", "fontawesome:size=8" };
 static const char col_gray1[]       = "#161616";
 static const char col_gray2[]       = "#060606";
 static const char col_gray3[]       = "#beaa9b";
@@ -54,11 +54,13 @@ static const Layout layouts[] = {
 
 static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "import", "1.jpg", 0};
-static const char *term[]  = { "alacritty", 0};
+static const char *term[]  = { "alacritty", "-o", "cursor.style=Beam", 0};
 static const char *browser[] = { "firefox", 0};
+static const char *bloat[] = { "chromium", 0};
 static const char *pavucontrol[] = { "pavucontrol", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
 static const char *spotify[] = { "spotify", 0};
+static const char *spotifytui[] = { "alacritty", "-e", "spt", 0};
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
 static const char *high[] = { "xbacklight", "-inc", "5", 0};
@@ -80,8 +82,10 @@ static const Key keys[] = {
 	{ MOD,			     XK_s,	spawn,		{.v = ss } },
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_n,	spawn,          {.v = browser } },
+	{ MOD,			     XK_m,	spawn,		{.v = bloat } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
+	{ MOD,                       XK_F3,     spawn,          {.v = spotifytui } },
 	{ MOD,                       XK_F5,     spawn,          {.v = spotify } },
 	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
 	{ MOD,                       XK_F7,     spawn,          {.v = fin } },
