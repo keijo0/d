@@ -31,5 +31,4 @@ LDFLAGS  = ${LIBS}
 #LDFLAGS = ${LIBS}
 
 # compiler and linker
-CC = /usr/lib/llvm/14/bin/clang
-ld = lld
+CC = gcc
