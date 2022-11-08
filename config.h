@@ -1,4 +1,4 @@
-static const unsigned int borderpx  = 1;
+static const unsigned int borderpx  = 0;
 static const unsigned int gapppx    = 10;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
@@ -7,10 +7,10 @@ static const unsigned int systrayspacing = 0;
 static const int systraypinningfailfirst = 0;
 static const unsigned int tabModKey            = 0x40;
 static const unsigned int tabCycleKey          = 0x17;
-static const unsigned int tabPosY                      = 1;    /* axis, 0 = bottom, 1 = center, 2 = top */
-static const unsigned int tabPosX                      = 1;    /* n X axis, 0 = left, 1 = center, 2 = right */
-static const unsigned int maxWTab                      = 250;  /* tab menu width */
-static const unsigned int maxHTab                      = 100;  /* tab menu height */
+static const unsigned int tabPosY              = 1;    /* axis, 0 = bottom, 1 ER, 2 = top */
+static const unsigned int tabPosX              = 1;    /* n X axis, 0 = left, 1 = center, 2 = right */
+static const unsigned int maxWTab              = 250;  /* tab menu width */
+static const unsigned int maxHTab              = 100;  /* tab menu height */
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 0;
@@ -57,7 +57,7 @@ static const Layout layouts[] = {
 #define TAGKEYS(KEY,TAG) \
 	{ MOD,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MOD|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} },
 
 static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "flameshot", "gui", 0};
@@ -104,6 +104,7 @@ static const Key keys[] = {
         { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
         { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
 	{ ALT,                       XK_F1,      togglebar,      {0} },
+	{ ALT,			     XK_F2,	 toggleborder,	 {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MOD,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MOD,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -112,7 +113,6 @@ static const Key keys[] = {
 	{ MOD|ShiftMask,	     XK_k,      movestack,      {.i = -1 } },
 	{ MOD,			     XK_Return, zoom,           {0} },
 	{ MOD,                       XK_Tab,    view,           {0} },
-	{ MOD,			     XK_c,	view,		{0} },
 	{ MOD,	       		     XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },

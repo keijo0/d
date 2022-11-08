@@ -227,6 +227,7 @@ static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
+static void toggleborder(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -2073,6 +2074,13 @@ togglebar(const Arg *arg)
 		XConfigureWindow(dpy, systray->win, CWY, &wc);
 	}
 	arrange(selmon);
+}
+
+void
+toggleborder(const Arg *arg)
+{
+  selmon->sel->bw = (selmon->sel->bw == borderpx ? 1 : borderpx);
+  arrange(selmon);
 }
 
 void
