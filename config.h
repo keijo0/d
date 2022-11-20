@@ -1,6 +1,6 @@
 static const unsigned int borderpx  = 0;
 static const unsigned int gapppx    = 10;
-static const unsigned int snap      = 0;
+static const unsigned int snap      = 20;
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayonleft = 0;
 static const unsigned int systrayspacing = 0;   
@@ -9,7 +9,7 @@ static const unsigned int tabModKey            = 0x40;
 static const unsigned int tabCycleKey          = 0x17;
 static const unsigned int tabPosY              = 1;    /* axis, 0 = bottom, 1 ER, 2 = top */
 static const unsigned int tabPosX              = 1;    /* n X axis, 0 = left, 1 = center, 2 = right */
-static const unsigned int maxWTab              = 250;  /* tab menu width */
+static const unsigned int maxWTab              = 500;  /* tab menu width */
 static const unsigned int maxHTab              = 100;  /* tab menu height */
 static const int showsystray        = 1;
 static const int showbar            = 1;
@@ -30,8 +30,7 @@ static const char *const autostart[] = {
 	"pasystray", NULL,
 	"xrdb", "/m/.Xresources", NULL,
 	"xautolock", "-time", "15", "-locker", "slock", NULL,
-//	"nm-applet", NULL,
-	"feh", "--bg-fill", "--no-fehbg", "/m/git/d/wp1.jpg", "/m/git/d/wp2.jpg", NULL,
+	"feh", "--bg-fill", "--no-fehbg", "/m/git/shit/wp1.jpg", "/m/git/shit/wp2.jpg", NULL,
 	NULL
 };
 
@@ -39,7 +38,7 @@ static const char *const autostart[] = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
 static const Rule rules[] = {
-		{ "Steam",			NULL,      NULL,		1 << 8,       1,           -1 },
+		{ "Steam",			NULL,      NULL,		1 << 9,       1,           -1 },
 }; 
 
 static const float mfact     = 0.50;
@@ -47,9 +46,9 @@ static const int nmaster     = 1;
 static const int lockfullscreen = 1;
 
 static const Layout layouts[] = {
-	{ "(floating)",		NULL },
-	{ "(tiling)",		tile },
-        { "(monocle)",      	monocle },
+	{ "",		NULL },
+	{ "",		tile },
+        { "",      	monocle },
 };
 
 #define ALT Mod1Mask
@@ -60,25 +59,22 @@ static const Layout layouts[] = {
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} },
 
 static const char *dmenu[] = { "dmenu_run", 0};
-static const char *ss[] = { "flameshot", "gui", 0};
-static const char *term[]  = { "alacritty", 0};
-static const char *browser[] = { "firefox", 0};
-static const char *pavucontrol[] = { "pavucontrol", 0};
+static const char *ss[] = { "screenshot", 0};
+static const char *term[]  = { "terminal", 0};
+static const char *browser[] = { "chromium", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
-static const char *spotify[] = { "spotify", 0};
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
 static const char *high[] = { "xbacklight", "-inc", "20", 0};
 static const char *low[] = { "xbacklight", "-dec", "20", 0};
-static const char *poweroff[] = { "doas", "poweroff", 0};
-static const char *reboot[] = { "doas", "reboot", 0};
-static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", 0};
-static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", 0};
-static const char *mutevol[] = { "amixer", "set", "Master", "toggle", 0};
-static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", 0};
 static const char *play[] = { "playerctl", "-a", "play-pause",  0};
 static const char *prev[] = { "playerctl", "-a", "previous",    0};
 static const char *next[] = { "playerctl", "-a", "next",        0};
+
+static const char *upvol[] = { "volume", "up", 0};
+static const char *downvol[] = { "volume", "down", 0};
+static const char *mutevol[] = { "volume", "mute", 0};
+static const char *mutemic[] = { "volume", "mic", 0};
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -87,20 +83,16 @@ static const Key keys[] = {
 	{ MOD,			     XK_s,	spawn,		{.v = ss } },
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_m,	spawn,          {.v = browser } },
-	{ MOD,                       XK_v,      spawn,          {.v = pavucontrol } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
-	{ MOD,                       XK_F5,     spawn,          {.v = spotify } },
-	{ MOD,                       XK_F6,     spawn,          {.v = eng } },
-	{ MOD,                       XK_F7,     spawn,          {.v = fin } },
-	{ MOD|ShiftMask,             XK_F10,    spawn,          {.v = poweroff } },
-	{ MOD|ShiftMask|ControlMask, XK_F12,    spawn,		{.v = reboot } },
+	{ ALT,                       XK_z,     spawn,          {.v = eng } },
+	{ ALT,                       XK_x,     spawn,          {.v = fin } },
 	{ 0,    XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
         { 0,    XF86XK_AudioLowerVolume,     spawn,          {.v = downvol   } },
-        { 0,    XF86XK_AudioMute,            spawn,          {.v = mutevol   } },
+        { 0,    XF86XK_AudioMute,            spawn,          {.v = play } },
         { 0,    XF86XK_AudioMicMute,         spawn,          {.v = mutemic   } },
         { 0,    XF86XK_MonBrightnessDown,    spawn,          {.v = low } },
         { 0,    XF86XK_MonBrightnessUp,      spawn,          {.v = high } },
-        { 0,    XF86XK_AudioPlay,            spawn,          {.v = play } },
+        { 0,    XF86XK_AudioPlay,            spawn,          {.v = mutevol } },
         { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
         { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
 	{ ALT,                       XK_F1,      togglebar,      {0} },
@@ -141,7 +133,6 @@ static const Key keys[] = {
 	{ MOD|ShiftMask,             	XK_r,      quit,           {0} },
 };
 
-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,				0,				Button1,        setlayout,      {0} },
