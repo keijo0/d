@@ -1,5 +1,5 @@
 #version
-VERSION = 1
+VERSION = 6
 
 # paths
 PREFIX = /usr/local

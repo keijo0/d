@@ -1,5 +1,5 @@
 static const unsigned int borderpx  = 0;
-static const unsigned int gapppx    = 10;
+static const unsigned int gapppx    = 20;
 static const unsigned int snap      = 20;
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayonleft = 0;
@@ -16,12 +16,12 @@ static const int showbar            = 1;
 static const int topbar             = 0;
 static const char *fonts[]          = { "Cousine:size=8", "fontawesome:size=8" };
 static const char col_gray1[]       = "#161616";
-static const char col_gray2[]       = "#060606";
+static const char col_gray2[]       = "#000000";
 static const char col_gray3[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, 0},
-	[SchemeSel]  = { col_gray3, col_gray2, col_gray3},
+	[SchemeNorm] = { col_gray3, col_gray2, 0},
+	[SchemeSel]  = { col_gray3, col_gray1, col_gray3},
 };
 
 static const char *const autostart[] = {
@@ -29,8 +29,8 @@ static const char *const autostart[] = {
 	"slstatus", NULL,
 	"pasystray", NULL,
 	"xrdb", "/m/.Xresources", NULL,
-	"xautolock", "-time", "15", "-locker", "slock", NULL,
-	"feh", "--bg-fill", "--no-fehbg", "/m/git/shit/wp1.jpg", "/m/git/shit/wp2.jpg", NULL,
+//	"xautolock", "-time", "15", "-locker", "slock", NULL,
+	"feh", "--bg-scale", "--no-fehbg", "/m/git/shit/wp7.jpg", NULL,
 	NULL
 };
 
@@ -61,8 +61,9 @@ static const Layout layouts[] = {
 static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "screenshot", 0};
 static const char *term[]  = { "terminal", 0};
-static const char *browser[] = { "chromium", 0};
+static const char *browser[] = { "firefox", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
+static const char *pavu[] = { "pavucontrol", 0};
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
 static const char *high[] = { "xbacklight", "-inc", "20", 0};
@@ -84,6 +85,7 @@ static const Key keys[] = {
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_m,	spawn,          {.v = browser } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
+	{ MOD,                       XK_v,      spawn,          {.v = pavu } },
 	{ ALT,                       XK_z,     spawn,          {.v = eng } },
 	{ ALT,                       XK_x,     spawn,          {.v = fin } },
 	{ 0,    XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
@@ -95,6 +97,10 @@ static const Key keys[] = {
         { 0,    XF86XK_AudioPlay,            spawn,          {.v = mutevol } },
         { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
         { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
+//static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", 0};
+//static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", 0};
+//static const char *mutevol[] = { "amixer", "set", "Master", "toggle", 0};
+//static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", 0};
 	{ ALT,                       XK_F1,      togglebar,      {0} },
 	{ ALT,			     XK_F2,	 toggleborder,	 {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
@@ -108,7 +114,7 @@ static const Key keys[] = {
 	{ MOD,	       		     XK_q,      killclient,    	{0} },
 	{ MOD,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
 	{ MOD,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
-	{ MOD,                       XK_F3,      setlayout,      {.v = &layouts[2]} },
+	{ MOD,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ ALT|ShiftMask,	     XK_1,	 setlayout,	 {.v = &layouts[0]} },
 	{ ALT|ShiftMask,             XK_2,       setlayout,      {.v = &layouts[1]} },
 	{ ALT|ShiftMask,             XK_3,       setlayout,      {.v = &layouts[2]} },
