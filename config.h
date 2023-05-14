@@ -1,6 +1,6 @@
 static const unsigned int borderpx  = 0;
-static const unsigned int gapppx    = 20;
-static const unsigned int snap      = 20;
+static const unsigned int gapppx    = 10;
+static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayonleft = 0;
 static const unsigned int systrayspacing = 0;   
@@ -9,14 +9,14 @@ static const unsigned int tabModKey            = 0x40;
 static const unsigned int tabCycleKey          = 0x17;
 static const unsigned int tabPosY              = 1;    /* axis, 0 = bottom, 1 ER, 2 = top */
 static const unsigned int tabPosX              = 1;    /* n X axis, 0 = left, 1 = center, 2 = right */
-static const unsigned int maxWTab              = 500;  /* tab menu width */
-static const unsigned int maxHTab              = 100;  /* tab menu height */
+static const unsigned int maxWTab              = 600;  /* tab menu width */
+static const unsigned int maxHTab              = 80;  /* tab menu height */
 static const int showsystray        = 1;
 static const int showbar            = 1;
-static const int topbar             = 0;
-static const char *fonts[]          = { "Cousine:size=8", "fontawesome:size=8" };
-static const char col_gray1[]       = "#161616";
-static const char col_gray2[]       = "#000000";
+static const int topbar             = 1;
+static const char *fonts[]          = { "Azeret Mono:size=8", "fontawesome:size=8" };
+static const char col_gray1[]       = "#000000";
+static const char col_gray2[]       = "#101010";
 static const char col_gray3[]       = "#beaa9b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -30,12 +30,14 @@ static const char *const autostart[] = {
 	"pasystray", NULL,
 	"xrdb", "/m/.Xresources", NULL,
 //	"xautolock", "-time", "15", "-locker", "slock", NULL,
-	"feh", "--bg-scale", "--no-fehbg", "/m/git/shit/wp7.jpg", NULL,
+	"feh", "--bg-scale", "--no-fehbg", "/m/Documents/cp.jpg", NULL,
+	"startnginx", NULL,
+	"juhis", NULL,
 	NULL
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
 
 static const Rule rules[] = {
 		{ "Steam",			NULL,      NULL,		1 << 9,       1,           -1 },
@@ -60,9 +62,11 @@ static const Layout layouts[] = {
 
 static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "screenshot", 0};
-static const char *term[]  = { "terminal", 0};
+static const char *term[]  = { "alacritty", 0};
 static const char *browser[] = { "firefox", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
+static const char *rc[] = { "roundcube", 0};
+static const char *straw[] = { "strawberry", 0};
 static const char *pavu[] = { "pavucontrol", 0};
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
@@ -85,6 +89,8 @@ static const Key keys[] = {
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_m,	spawn,          {.v = browser } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
+	{ MOD,                       XK_c,	spawn,          {.v = rc } },
+	{ MOD,                       XK_x,	spawn,          {.v = straw } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavu } },
 	{ ALT,                       XK_z,     spawn,          {.v = eng } },
 	{ ALT,                       XK_x,     spawn,          {.v = fin } },
@@ -97,10 +103,6 @@ static const Key keys[] = {
         { 0,    XF86XK_AudioPlay,            spawn,          {.v = mutevol } },
         { 0,    XF86XK_AudioNext,            spawn,          {.v = next } },
         { 0,    XF86XK_AudioPrev,            spawn,          {.v = prev } },
-//static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", 0};
-//static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", 0};
-//static const char *mutevol[] = { "amixer", "set", "Master", "toggle", 0};
-//static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", 0};
 	{ ALT,                       XK_F1,      togglebar,      {0} },
 	{ ALT,			     XK_F2,	 toggleborder,	 {0} },
 	{ MOD,                       XK_j,      focusstack,     {.i = +1 } },
@@ -151,3 +153,7 @@ static const Button buttons[] = {
 	{ ClkTagBar,				0,				Button3,        toggleview,     {0} },
 	{ ClkTagBar,				MOD,				Button1,        tag,            {0} },
 };
+//static const char *upvol[]   = { "amixer", "-q", "set", "Master", "5%+", "unmute", 0};
+//static const char *downvol[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", 0};
+//static const char *mutevol[] = { "amixer", "set", "Master", "toggle", 0};
+//static const char *mutemic[] = { "amixer", "set", "Capture", "toggle", 0};
