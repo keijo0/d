@@ -29,15 +29,16 @@ static const char *const autostart[] = {
 	"slstatus", NULL,
 	"pasystray", NULL,
 	"xrdb", "/m/.Xresources", NULL,
-//	"xautolock", "-time", "15", "-locker", "slock", NULL,
-	"feh", "--bg-scale", "--no-fehbg", "/m/Documents/cp.jpg", NULL,
+	//"xautolock", "-time", "15", "-locker", "slock", NULL,
+	"feh", "--bg-scale", "--no-fehbg", "/m/Documents/lalain.jpg", NULL,
 	"startnginx", NULL,
-	"juhis", NULL,
+	"syncthing", "--no-browser", NULL,
+	"nm-applet", NULL,
 	NULL
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
 static const Rule rules[] = {
 		{ "Steam",			NULL,      NULL,		1 << 9,       1,           -1 },
@@ -61,20 +62,21 @@ static const Layout layouts[] = {
 	{ MOD|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} },
 
 static const char *dmenu[] = { "dmenu_run", 0};
-static const char *ss[] = { "screenshot", 0};
-static const char *term[]  = { "alacritty", 0};
-static const char *browser[] = { "firefox", 0};
+static const char *ss[] = { "flameshot", "gui", 0};
+//static const char *ss[] = { "screenshot", 0};
+static const char *term[]  = { "0", 0};
+static const char *browser[] = { "firefox-dev", "--allow-downgrade", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
-static const char *rc[] = { "roundcube", 0};
-static const char *straw[] = { "strawberry", 0};
+static const char *straw[] = { "gmusicbrowser", 0};
 static const char *pavu[] = { "pavucontrol", 0};
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
-static const char *high[] = { "xbacklight", "-inc", "20", 0};
-static const char *low[] = { "xbacklight", "-dec", "20", 0};
+static const char *high[] = { "xbacklight", "-inc", "10", 0};
+static const char *low[] = { "xbacklight", "-dec", "10", 0};
 static const char *play[] = { "playerctl", "-a", "play-pause",  0};
 static const char *prev[] = { "playerctl", "-a", "previous",    0};
 static const char *next[] = { "playerctl", "-a", "next",        0};
+static const char *lock[] = { "slock", 0};
 
 static const char *upvol[] = { "volume", "up", 0};
 static const char *downvol[] = { "volume", "down", 0};
@@ -89,9 +91,9 @@ static const Key keys[] = {
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_m,	spawn,          {.v = browser } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
-	{ MOD,                       XK_c,	spawn,          {.v = rc } },
 	{ MOD,                       XK_x,	spawn,          {.v = straw } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavu } },
+	{ MOD,                       XK_l,      spawn,          {.v = lock } },
 	{ ALT,                       XK_z,     spawn,          {.v = eng } },
 	{ ALT,                       XK_x,     spawn,          {.v = fin } },
 	{ 0,    XF86XK_AudioRaiseVolume,     spawn,          {.v = upvol   } },
