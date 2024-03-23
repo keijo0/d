@@ -14,7 +14,7 @@ static const unsigned int maxHTab              = 80;  /* tab menu height */
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 1;
-static const char *fonts[]          = { "Azeret Mono:size=8", "fontawesome:size=8" };
+static const char *fonts[]          = { "Azaret Mono:size=8", "fontawesome:size=8" };
 static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#101010";
 static const char col_gray3[]       = "#beaa9b";
