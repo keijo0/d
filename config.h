@@ -2,7 +2,7 @@ static const unsigned int borderpx  = 0;
 static const unsigned int gapppx    = 10;
 static const unsigned int snap      = 0;
 static const unsigned int systraypinning = 0;
-static const unsigned int systrayonleft = 0;
+static const unsigned int systrayonleft = 1;
 static const unsigned int systrayspacing = 0;   
 static const int systraypinningfailfirst = 0;
 static const unsigned int tabModKey            = 0x40;
@@ -14,7 +14,7 @@ static const unsigned int maxHTab              = 80;  /* tab menu height */
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 1;
-static const char *fonts[]          = { "Azaret Mono:size=8", "fontawesome:size=8" };
+static const char *fonts[]          = { "Azeret Mono:size=7", "fontawesome:size=7" };
 static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#101010";
 static const char col_gray3[]       = "#beaa9b";
@@ -29,7 +29,7 @@ static const char *const autostart[] = {
 	"slstatus", NULL,
 	"pasystray", NULL,
 	"xrdb", "/m/.Xresources", NULL,
-	//"xautolock", "-time", "15", "-locker", "slock", NULL,
+	"xautolock", "-time", "15", "-locker", "slock", NULL,
 	"feh", "--bg-scale", "--no-fehbg", "/m/Documents/lalain.jpg", NULL,
 	"startnginx", NULL,
 	"syncthing", "--no-browser", NULL,
@@ -65,7 +65,7 @@ static const char *dmenu[] = { "dmenu_run", 0};
 static const char *ss[] = { "flameshot", "gui", 0};
 //static const char *ss[] = { "screenshot", 0};
 static const char *term[]  = { "0", 0};
-static const char *browser[] = { "firefox-dev", "--allow-downgrade", 0};
+static const char *browser[] = { "firefox", "--allow-downgrade", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
 static const char *straw[] = { "gmusicbrowser", 0};
 static const char *pavu[] = { "pavucontrol", 0};
