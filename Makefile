@@ -3,13 +3,7 @@ include config.mk
 SRC = drw.c d.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options d
-
-options:
-	@echo d build options:
-	@echo "CFLAGS   = ${CFLAGS}"
-	@echo "LDFLAGS  = ${LDFLAGS}"
-	@echo "CC       = ${CC}"
+all: d
 
 .c.o:
 	${CC} -c ${CFLAGS} $<
