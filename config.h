@@ -25,14 +25,14 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"xautolock", "-time", "15", "-locker", "slock", NULL,
-	"nm-applet", NULL,
+	//"xautolock", "-time", "15", "-locker", "slock", NULL,
+	//"nm-applet", NULL,
 	"dunst", NULL,
 	"slstatus", NULL,
-	"xrdb", "/m/.Xresources", NULL,
-	"feh", "--bg-scale", "--no-fehbg", "/m/Documents/lalain.jpg", NULL,
-	"startnginx", NULL,
-	"syncthing", "--no-browser", NULL,
+	//"xrdb", "/m/.Xresources", NULL,
+	//"feh", "--bg-scale", "--no-fehbg", "/m/Documents/cb.jpg", NULL,
+	//"startnginx", NULL,
+	//"syncthing", "--no-browser", NULL,
 	NULL
 };
 
@@ -44,7 +44,7 @@ static const Rule rules[] = {
 
 }; 
 
-static const float mfact     = 0.70;
+static const float mfact     = 0.60;
 static const int nmaster     = 1;
 static const int lockfullscreen = 1;
 
