@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <X11/cursorfont.h>
@@ -155,6 +156,7 @@ struct Systray {
 };
 
 /* function declarations */
+static void alttab(const Arg *arg);
 static void applyrules(Client *c);
 static void arrange(Monitor *m);
 static void arrangemon(Monitor *m);
@@ -179,7 +181,7 @@ static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
 static void focusin(XEvent *e);
-static void focusstack(const Arg *arg);
+static void focusnext(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
@@ -214,9 +216,7 @@ static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
-static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
-static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
@@ -224,7 +224,7 @@ static void spawn(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tile(Monitor *m);
-static void togglebar(const Arg *arg);
+static void toggletopbar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -245,6 +245,7 @@ static void updatewmhints(Client *c);
 static void view(const Arg *arg);
 static Client *wintoclient(Window w);
 static Monitor *wintomon(Window w);
+static void winview(const Arg* arg);
 static Client *wintosystrayicon(Window w);
 static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
@@ -293,6 +294,8 @@ static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
 
+static int alt_tab_direction = 0;
+
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
@@ -328,6 +331,79 @@ autostart_exec() {
 }
 
 /* function implementations */
+
+static void
+alttab(const Arg *arg) {
+
+	view(&(Arg){ .ui = ~0 });
+	focusnext(&(Arg){ .i = alt_tab_direction });
+
+	int grabbed = 1;
+	int grabbed_keyboard = 1000;
+	for (int i = 0; i < 100; i += 1) {
+		struct timespec ts;
+		ts.tv_sec = 0;
+		ts.tv_nsec = 1000000;
+
+		if (grabbed_keyboard != GrabSuccess) {
+			grabbed_keyboard = XGrabKeyboard(dpy, DefaultRootWindow(dpy), True,
+											 GrabModeAsync, GrabModeAsync, CurrentTime);
+		}
+		if (grabbed_keyboard == GrabSuccess) {
+			XGrabButton(dpy, AnyButton, AnyModifier, None, False,
+						BUTTONMASK, GrabModeAsync, GrabModeAsync,
+						None, None);
+			break;
+		}
+		nanosleep(&ts, NULL);
+		if (i == 100 - 1)
+			grabbed = 0;
+	}
+
+	XEvent event;
+	Client *c;
+	Monitor *m;
+	XButtonPressedEvent *ev;
+
+	while (grabbed) {
+		XNextEvent(dpy, &event);
+		switch (event.type) {
+		case KeyPress:
+			if (event.xkey.keycode == tabCycleKey)
+				focusnext(&(Arg){ .i = alt_tab_direction });
+			break;
+		case KeyRelease:
+			if (event.xkey.keycode == tabModKey) {
+				XUngrabKeyboard(dpy, CurrentTime);
+				XUngrabButton(dpy, AnyButton, AnyModifier, None);
+				grabbed = 0;
+				alt_tab_direction = !alt_tab_direction;
+				winview(0);
+			}
+			break;
+	    case ButtonPress:
+			ev = &(event.xbutton);
+			if ((m = wintomon(ev->window)) && m != selmon) {
+				unfocus(selmon->sel, 1);
+				selmon = m;
+				focus(NULL);
+			}
+			if ((c = wintoclient(ev->window)))
+				focus(c);
+			XAllowEvents(dpy, AsyncBoth, CurrentTime);
+			break;
+		case ButtonRelease:
+			XUngrabKeyboard(dpy, CurrentTime);
+			XUngrabButton(dpy, AnyButton, AnyModifier, None);
+			grabbed = 0;
+			alt_tab_direction = !alt_tab_direction;
+			winview(0);
+			break;
+		}
+	}
+	return;
+}
+
 void
 applyrules(Client *c)
 {
@@ -829,6 +905,28 @@ expose(XEvent *e)
 	}
 }
 
+static void
+focusnext(const Arg *arg) {
+	Monitor *m;
+	Client *c;
+	m = selmon;
+	c = m->sel;
+
+	if (arg->i) {
+		if (c->next)
+			c = c->next;
+		else
+			c = m->clients;
+	} else {
+		Client *last = c;
+		if (last == m->clients)
+			last = NULL;
+		for (c = m->clients; c->next != last; c = c->next);
+	}
+	focus(c);
+	return;
+}
+
 void
 focus(Client *c)
 {
@@ -864,32 +962,6 @@ focusin(XEvent *e)
 		setfocus(selmon->sel);
 }
 
-
-void
-focusstack(const Arg *arg)
-{
-	Client *c = NULL, *i;
-
-	if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
-		return;
-	if (arg->i > 0) {
-		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
-		if (!c)
-			for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
-	} else {
-		for (i = selmon->clients; i != selmon->sel; i = i->next)
-			if (ISVISIBLE(i))
-				c = i;
-		if (!c)
-			for (; i; i = i->next)
-				if (ISVISIBLE(i))
-					c = i;
-	}
-	if (c) {
-		focus(c);
-		restack(selmon);
-	}
-}
 
 Atom
 getatomprop(Client *c, Atom prop)
@@ -1645,15 +1717,6 @@ setfullscreen(Client *c, int fullscreen)
 	}
 }
 
-void
-setgaps(const Arg *arg)
-{
-	if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
-		selmon->gappx = 0;
-	else
-		selmon->gappx += arg->i;
-	arrange(selmon);
-}
 
 void
 setlayout(const Arg *arg)
@@ -1670,19 +1733,6 @@ setlayout(const Arg *arg)
 }
 
 /* arg > 1.0 will set mfact absolutely */
-void
-setmfact(const Arg *arg)
-{
-	float f;
-
-	if (!arg || !selmon->lt[selmon->sellt]->arrange)
-		return;
-	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
-	if (f < 0.05 || f > 0.95)
-		return;
-	selmon->mfact = f;
-	arrange(selmon);
-}
 
 void
 setup(void)
@@ -1751,7 +1801,7 @@ setup(void)
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMName], utf8string, 8,
-		PropModeReplace, (unsigned char *) "lain", 20);
+		PropModeReplace, (unsigned char *) "wm", 20);
 	XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	/* EWMH support per view */
@@ -1881,6 +1931,7 @@ altTabEnd()
 void
 drawTab(int nwins, int first, Monitor *m)
 {
+	return;
 	/* little documentation of functions */
 	/* void drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int invert); */
 	/* int drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lpad, const char *text, int invert); */
@@ -2068,26 +2119,6 @@ tile(Monitor *m)
 }
 
 void
-togglebar(const Arg *arg)
-{
-	selmon->showbar = !selmon->showbar;
-	updatebarpos(selmon);
-	resizebarwin(selmon);
-	if (showsystray) {
-		XWindowChanges wc;
-		if (!selmon->showbar)
-			wc.y = -bh;
-		else if (selmon->showbar) {
-			wc.y = 0;
-			if (!selmon->topbar)
-				wc.y = selmon->mh - bh;
-		}
-		XConfigureWindow(dpy, systray->win, CWY, &wc);
-	}
-	arrange(selmon);
-}
-
-void
 togglefloating(const Arg *arg)
 {
 	if (!selmon->sel)
@@ -2098,6 +2129,15 @@ togglefloating(const Arg *arg)
 	if (selmon->sel->isfloating)
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
 			selmon->sel->w, selmon->sel->h, 0);
+	arrange(selmon);
+}
+
+void
+toggletopbar(const Arg *arg)
+{
+    selmon->showbar = !selmon->showbar;
+	updatebarpos(selmon);
+	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
 	arrange(selmon);
 }
 
@@ -2536,6 +2576,26 @@ wintomon(Window w)
 	if ((c = wintoclient(w)))
 		return c->mon;
 	return selmon;
+}
+
+/* Selects for the view of the focused window. The list of tags */
+/* to be displayed is matched to the focused window tag list. */
+void
+winview(const Arg* arg){
+	Window win, win_r, win_p, *win_c;
+	unsigned nc;
+	int unused;
+	Client* c;
+	Arg a;
+
+	if (!XGetInputFocus(dpy, &win, &unused)) return;
+	while(XQueryTree(dpy, win, &win_r, &win_p, &win_c, &nc)
+	      && win_p != win_r) win = win_p;
+
+	if (!(c = wintoclient(win))) return;
+
+	a.ui = c->tags;
+	view(&a);
 }
 
 /* There's no way to check accesses to destroyed windows, thus those cases are

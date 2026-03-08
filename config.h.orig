@@ -30,7 +30,7 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"xrdb", "-merge", "/m/.Xresources", NULL,
-	"feh", "--bg-scale", "--no-fehbg", "/m/git/wall/wallpaper.jpg", "/m/git/wall/wallpaper.jpg", NULL,
+	"feh", "--bg-scale", "--no-fehbg", "/m/git/wall/lainpc.jpg", "/m/git/wall/wallpaper.jpg", NULL,
 	"steam", NULL,
 	"mullvad-vpn", NULL,
 	NULL
@@ -65,15 +65,14 @@ static const Layout layouts[] = {
 
 static const char *term[]  = { "kitty", 0};
 static const char *dmenu[] = { "dmenu_run", 0};
-
-
 static const char *ss[] = { "screenshot", 0};
 static const char *obs[] = { "obs", "--startreplaybuffer", 0};
-static const char *browser[] = { "librewolf-bin", 0};
+static const char *browser[] = { "chromium-bin", "--disable-features=ExtensionManifestV2Unsupported", 0};
 static const char *galc[] = { "galculator", 0};
 static const char *pcmanfm[] = { "pcmanfm", 0};
 static const char *pavu[] = { "pavucontrol", 0};
 static const char *keepass[] = { "keepassxc", 0};
+
 static const char *eng[] = { "setxkbmap", "us", 0};
 static const char *fin[] = { "setxkbmap", "fi", 0};
 static const char *high[] = { "xbacklight", "-inc", "10", 0};
@@ -84,24 +83,21 @@ static const char *next[] = { "playerctl", "-a", "next",        0};
 static const char *daily[] = { "kitty", "-e", "vim", "daily", 0};
 static const char *longjump[] = { "kitty", "-e", "python3", "/m/git/bin/lj1.py", 0};
 static const char *cs[] = { "kitty", "-e", "cs2-autoaccept-linux", 0};
+
 static const char *upvol[] = { "volume", "up", 0};
 static const char *downvol[] = { "volume", "down", 0};
 static const char *mutevol[] = { "volume", "mute", 0};
 static const char *mutemic[] = { "volume", "mic", 0};
-static const char *res1[] = { "sh", "/m/git/bin/res1.sh", 0};
-static const char *res2[] = { "sh", "/m/git/bin/res2.sh", 0};
 
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MOD,                       XK_w,      winview,        {0} },
-
 	{ MOD,                       XK_p,      spawn,          {.v = dmenu } },
 	{ MOD,			     XK_s,	spawn,		{.v = ss } },
 	{ MOD,			     XK_Return, spawn,          {.v = term } },
 	{ MOD,                       XK_m,	spawn,          {.v = browser } },
 	{ MOD,                       XK_n,	spawn,          {.v = obs } },
-	{ MOD,                       XK_o,	spawn,          {.v = galc } },
+	{ MOD,                       XK_k,	spawn,          {.v = galc } },
 	{ MOD,                       XK_b,	spawn,          {.v = pcmanfm } },
 	{ MOD,                       XK_v,      spawn,          {.v = pavu } },
 	{ MOD,                       XK_g,      spawn,          {.v = keepass } },
@@ -110,18 +106,10 @@ static const Key keys[] = {
 	{ MOD,                       XK_z,      spawn,          {.v = cs } },
 	{ MOD,                       XK_u,      spawn,          {.v = mutemic } },
 	{ MOD,                       XK_i,      spawn,          {.v = mutevol } },
-	{ MOD,                       XK_k,      spawn,          {.v = res1 } },
-	{ MOD,                       XK_l,      spawn,          {.v = res2 } },
-
-
-
-
 	{ MOD,             	     XK_f,     togglefullscr,  		{0} },
 	{ MOD,             	     XK_t,     toggletopbar,  		{0} },
-
 	{ ALT,                       XK_z,     spawn,          {.v = eng } },
 	{ ALT,                       XK_x,     spawn,          {.v = fin } },
-
 	{ MOD,			     XK_Return, zoom,           {0} },
 	{ MOD,                       XK_Tab,    view,           {0} },
 	{ MOD,	       		     XK_q,      killclient,    	{0} },
