@@ -30,7 +30,7 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"xrdb", "-merge", "/m/.Xresources", NULL,
-	"feh", "--bg-scale", "--no-fehbg", "/m/git/wall/wallpaper.jpg", "/m/git/wall/wallpaper.jpg", NULL,
+	"feh", "--bg-scale", "--no-fehbg", "/m/git/wall/cp.jpg", "/m/git/wall/wallpaper.jpg", NULL,
 	"steam", NULL,
 	"mullvad-vpn", NULL,
 	NULL
