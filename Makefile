@@ -36,3 +36,4 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/d
 
 .PHONY: all options clean dist install uninstall
+ 
