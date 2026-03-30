@@ -225,6 +225,7 @@ static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tile(Monitor *m);
 static void toggletopbar(const Arg *arg);
+static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -2133,9 +2134,18 @@ togglefloating(const Arg *arg)
 }
 
 void
-toggletopbar(const Arg *arg)
+togglebar(const Arg *arg)
 {
     selmon->showbar = !selmon->showbar;
+	updatebarpos(selmon);
+	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+	arrange(selmon);
+}
+
+void
+toggletopbar(const Arg *arg)
+{
+    selmon->topbar = !selmon->topbar;
 	updatebarpos(selmon);
 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
 	arrange(selmon);

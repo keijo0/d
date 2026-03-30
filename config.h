@@ -7,10 +7,10 @@ static const unsigned int systrayspacing = 0;
 static const int systraypinningfailfirst = 0;
 static const unsigned int tabModKey            = 0x40;
 static const unsigned int tabCycleKey          = 0x17;
-static const unsigned int tabPosY              = 1;    /* axis, 0 = bottom, 1 ER, 2 = top */
-static const unsigned int tabPosX              = 1;    /* n X axis, 0 = left, 1 = center, 2 = right */
-static const unsigned int maxWTab              = 300;  /* tab menu width */
-static const unsigned int maxHTab              = 100;  /* tab menu height */
+static const unsigned int tabPosY              = 1;   
+static const unsigned int tabPosX              = 1;    
+static const unsigned int maxWTab              = 300;
+static const unsigned int maxHTab              = 100;
 static const int showsystray        = 1;
 static const int showbar            = 1;
 static const int topbar             = 1;
@@ -112,15 +112,14 @@ static const Key keys[] = {
 	{ MOD,                       XK_i,      spawn,          {.v = mutevol } },
 	{ MOD,                       XK_k,      spawn,          {.v = res1 } },
 	{ MOD,                       XK_l,      spawn,          {.v = res2 } },
-
-
+	{ ALT,                       XK_z,     spawn,          {.v = eng } },
+	{ ALT,                       XK_x,     spawn,          {.v = fin } },
 
 
 	{ MOD,             	     XK_f,     togglefullscr,  		{0} },
-	{ MOD,             	     XK_t,     toggletopbar,  		{0} },
+	{ MOD,             	     XK_t,     togglebar,  		{0} },
+	{ MOD,             	     XK_y,     toggletopbar,  		{0} },
 
-	{ ALT,                       XK_z,     spawn,          {.v = eng } },
-	{ ALT,                       XK_x,     spawn,          {.v = fin } },
 
 	{ MOD,			     XK_Return, zoom,           {0} },
 	{ MOD,                       XK_Tab,    view,           {0} },
